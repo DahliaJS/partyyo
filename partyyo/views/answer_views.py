@@ -54,8 +54,5 @@ def answer_delete(request, answer_id):
 def answer_vote(request, answer_id):
     answer = get_object_or_404(Answer, pk=answer_id)
     question = get_object_or_404(Question, pk=answer_id)
-    if request.user != question.author:
-        messages.error(request, '가입 확인은 파티장만 가능합니다.')
-    else:
-        answer.voter.add(request.user)
+    answer.voter.add(request.user)
     return redirect('partyyo:detail', question_id=answer.question.id)
